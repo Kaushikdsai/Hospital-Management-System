@@ -1,3 +1,10 @@
+/* Navbar Styling */
+.nav-bar a, .nav-bar .nav-link {
+  text-decoration: none;  /* Removes underline */
+  color: inherit;  /* Makes the color the same as the parent */
+}
+
+
 .nav-bar{
   display: flex;
   background-color: rgb(30, 30, 255);

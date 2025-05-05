@@ -4,9 +4,14 @@ import Homescreen from './Components/Homescreen';
 import Admin from './Components/Admin';
 import Doctor from './Components/Doctor';
 import Patient from './Components/Patient';
+import ProtectedRoute from './Components/ProtectedRoute';
 import './App.css';
 
 function App() {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const handleAuthentication = (status) => {
+        setIsAuthenticated(status);
+    }
     const [submittedData, setSubmittedData] = useState([]);
 
     useEffect(() => {
@@ -39,10 +44,10 @@ function App() {
                 </nav>
             </div>
             <Routes>
-                <Route path="/" element={<Homescreen />} />
-                <Route path="/admin" element={<Admin submittedData={submittedData} setSubmittedData={setSubmittedData} />} />
-                <Route path="/doctor" element={<Doctor submittedData={submittedData} />} />
-                <Route path="/patient" element={<Patient submittedData={submittedData} />} />
+                <Route path="/" element={<Homescreen handleAuthentication={handleAuthentication}/>} />
+                <Route path="/admin" element={<ProtectedRoute isAuthenticated={isAuthenticated}> <Admin submittedData={submittedData} setSubmittedData={setSubmittedData}/></ProtectedRoute>}/>
+                <Route path="/doctor" element={<ProtectedRoute isAuthenticated={isAuthenticated}> <Doctor submittedData={submittedData} /></ProtectedRoute>} />
+                <Route path="/patient" element={<ProtectedRoute isAuthenticated={isAuthenticated}> <Patient submittedData={submittedData} /></ProtectedRoute>} />
             </Routes>
         </Router>
     );
